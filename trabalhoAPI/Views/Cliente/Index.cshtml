@@ -1,0 +1,117 @@
+﻿@model IEnumerable<trabalhoAPI.Models.Cliente>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Novo Cliente</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Telefone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cpf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Foto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cep)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Logradouro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Complemento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Bairro)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Localidade)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Uf)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ddd)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Telefone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cpf)
+                </td>
+                <td>
+                    @{
+                        try
+                        {
+                            var base64 = Convert.ToBase64String(item.Foto);
+                            if(!string.IsNullOrEmpty(base64))
+                            {
+                                var imgSrc = String.Format("data:image/png;base64,{0}", base64);
+                                <img class="img-fluid" src="@imgSrc" width="100" />
+                            }
+                        }
+                        catch
+                        {
+                            <img class="img-fluid" src="https://i0.wp.com/omeudiadia.com.br/wp-content/uploads/2022/04/gato-feio.webp?w=594&ssl=1"
+                            width="70" />
+                        }
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Cep)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Logradouro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Complemento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Bairro)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Localidade)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Uf)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ddd)
+                </td>
+                <td>
+                    <a class="btn btn-outline-primary btn-sm" asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a class="btn btn-outline-info btn-sm" asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a class="btn btn-outline-danger btn-sm" asp-action="Delete" asp-route-id="@item.Id">Apagar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
